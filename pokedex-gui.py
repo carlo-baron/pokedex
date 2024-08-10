@@ -2,6 +2,7 @@ from tkinter import *
 import requests
 from PIL import Image, ImageTk
 from io import BytesIO
+import vlc
 
 root = Tk()
 root.title("Pokedex by Carlo")
@@ -9,7 +10,11 @@ root.title("Pokedex by Carlo")
 frame = Frame(root)
 frame.grid(row=0)
 
+
+
 def Search_Pokemon(_):
+    global pokemon_info
+
     url = f"https://pokeapi.co/api/v2/pokemon/{search_bar.get().lower()}"
     response = requests.get(url)
     
@@ -22,12 +27,13 @@ def Search_Pokemon(_):
             "base_stats" : [stats["base_stat"] for stats in pokemon_data["stats"]],
             "effort" : [(ev["effort"], ev["stat"]["name"]) for ev in pokemon_data["stats"] if ev["effort"] > 0],
             "sprite" : pokemon_data["sprites"]["front_default"],
+            "cry" : pokemon_data["cries"]["latest"]
         }
-        DisplayData(True, pokemon_info)
+        DisplayData(True)
     else:
         DisplayData(False, None)
 
-def DisplayData(state, pokemon_info):
+def DisplayData(state):
     global img_ref # apparently if PhotoImage is not referenced, garbage collector may remove it
     
     for widget in frame.winfo_children():
@@ -57,7 +63,7 @@ def DisplayData(state, pokemon_info):
         
         img_ref = img_tk
         
-        img_panel = Label(frame, image = img_tk)
+        img_panel = Button(frame, image = img_tk, command=PlayCry,highlightthickness=0, bd=0)
         
         #region Packs
         name.grid(row=1)
@@ -76,7 +82,12 @@ def DisplayData(state, pokemon_info):
     else:
         error = Label(frame, text="INVALID POKEMON NAME")
         error.grid(row=1)
-        
+
+def PlayCry():
+    cry_url = pokemon_info["cry"]
+    sound = vlc.MediaPlayer(cry_url)
+    sound.play()
+
         
 root.bind('<Return>', Search_Pokemon)
 
