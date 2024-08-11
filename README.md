@@ -1,8 +1,17 @@
 # Program Overview
-This is a simple pokedex that shows the pokemon's: Name, Abilities, Types, Base Stats, EV yield, and Sprite.
+This is a simple Pokédex that displays the Pokémon's: Name, Abilities, Types, Base Stats, EV Yield, and Sprite.
 
-This is also my revision of my original pokedex I made during my early days of programming in which I used pypokedex (a python library).
-https://github.com/iscyprit/Pokedex-pypokedex-tkinter-
+This is also a revision of my original Pokédex, which I made during my early days of programming using the `pypokedex` Python library. [Link to GitHub Repository](https://github.com/iscyprit/Pokedex-pypokedex-tkinter-)
 
-## About
-Made with python and PokeAPI
+# Usage
+Type the name of the Pokémon or its corresponding Pokédex number and hit Enter.
+
+Click the Pokémon's sprite to play its cry.
+
+You may also get Pokémon forms using this format: `{pokemon-name}-{form}`, e.g., Zacian-crowned. The PokeAPI documentation provides more information about this.
+
+# Note
+It uses VLC to play the Pokémon's cry. If you prefer not to use VLC, you can modify the code accordingly.
+
+# About
+Made with Python and PokeAPI
