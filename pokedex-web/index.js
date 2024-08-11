@@ -1,7 +1,9 @@
 let pokemon_name;
 
 
-document.getElementById("submit").onclick = async function(){
+document.getElementById("submit").onclick = async function(e){
+    e.preventDefault();
+
     pokemon_name = document.getElementById("search").value;
 
     const api_url = "https://pokeapi.co/api/v2/pokemon/".concat(pokemon_name).toLowerCase();
