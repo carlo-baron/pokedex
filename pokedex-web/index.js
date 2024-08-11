@@ -19,7 +19,7 @@ document.getElementById("submit").onclick = async function(){
     }
 
     let texts = document.getElementsByClassName("data");
-
+    console.log("test branch");
     // figureout how foreach work
     let i = 0;
     texts.forEach(element => {
