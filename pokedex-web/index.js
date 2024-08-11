@@ -16,16 +16,25 @@ document.getElementById("submit").onclick = async function(){
         "base_stats" : pokemon_data.stats.map(stat => stat.base_stat),
         "effort" : pokemon_data.stats.filter(ev => ev.effort > 0).map(ev => [ev.effort, ev.stat.name]),
         "sprite" : pokemon_data.sprites.front_default,
+        "cry" : pokemon_data.cries.latest
     }
 
     let texts = document.getElementsByClassName("data");
-    console.log("test branch");
+    var textsArr = [].slice.call(texts);
+
     // figureout how foreach work
-    let i = 0;
-    texts.forEach(element => {
-        element.innerText = pokemon_info[keys[i]];
-        i++;
-    });
+    textsArr.forEach(changetext);
+    
+    function changetext(element, index){
+        element.innerText = pokemon_info[Object.keys(pokemon_info)[index]];
+    }
+
+    var audio = document.querySelector("audio");
+
+    document.getElementById("sprite").src = pokemon_info.sprite;
+    document.getElementById("cry").src = pokemon_info.cry;
+
+    audio.load();
 }
 
 
