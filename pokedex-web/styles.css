@@ -17,9 +17,13 @@ body{
     align-items: center;
     justify-content: center;
     flex-direction: column;
+
+    text-align: center;
 }
 
-form{
+.inputs{
     display: flex;
     flex-direction: column;
+
+    margin-bottom: 1em;
 }
