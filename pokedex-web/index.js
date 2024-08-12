@@ -31,6 +31,9 @@ document.getElementById("submit").onclick = async function(e){
         element.innerText = pokemon_info[Object.keys(pokemon_info)[index]];
     }
 
+    
+
+
     var audio = document.querySelector("audio");
 
     document.getElementById("sprite").src = pokemon_info.sprite;

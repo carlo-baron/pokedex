@@ -1,3 +1,7 @@
+html{
+    font-size: 62.5%;
+}
+
 *{
     padding: 0;
     margin: 0;
@@ -6,14 +10,14 @@
 body{
     display: flex;
     justify-content: center;
-    background-color: rgb(255, 240, 240);
+    background-color: rgb(255, 248, 248);
 }
 
 .container{
     width: 50vh;
     height: 100vh;
     background-color: white;
-    filter: drop-shadow(5px 5px 5px #000);
+    box-shadow: -5px 0px 10px #000;
 
     display: flex;
     align-items: center;
@@ -21,11 +25,26 @@ body{
     flex-direction: column;
 
     text-align: center;
+    font-size: 2em;
+    font-family: "VT323", monospace;
+    font-weight: 400;
+    font-style: normal;
 }
 
 .inputs{
     display: flex;
     flex-direction: column;
 
+    width: 25rem;
+    height: 10rem;
+
     margin-bottom: 1em;
+}
+
+input{
+    height: 3em;
+}
+
+label{
+    color: brown;
 }
