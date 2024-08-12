@@ -1,27 +1,30 @@
-let pokemon_name;
-
+let spriteSelect = document.getElementById("sprite-select");
+let pokemon_info;
+let spriteValue;
+let pokemon_data
 
 document.getElementById("submit").onclick = async function(e){
     e.preventDefault();
 
-    pokemon_name = document.getElementById("search").value;
+    spriteValue = spriteSelect.value;
 
+    const pokemon_name = document.getElementById("search").value;
     const api_url = "https://pokeapi.co/api/v2/pokemon/".concat(pokemon_name).toLowerCase();
     
-    let response = await fetch(api_url);
-    const pokemon_data = await response.json();
+    const response = await fetch(api_url);
+    pokemon_data = await response.json();
 
-    const pokemon_info = {
+    pokemon_info = {
         "name" : pokemon_data.name,
         "abilities" : pokemon_data.abilities.map(ability_data => ability_data.ability.name),
         "types" : pokemon_data.types.map(type_data => type_data.type.name),
         "base_stats" : pokemon_data.stats.map(stat => stat.base_stat),
         "effort" : pokemon_data.stats.filter(ev => ev.effort > 0).map(ev => [ev.effort, ev.stat.name]),
-        "sprite" : pokemon_data.sprites.front_default,
+        "sprite" : spriteValue == "normal" ? pokemon_data.sprites.front_default : pokemon_data.sprites.front_shiny,
         "cry" : pokemon_data.cries.latest
     }
 
-    let texts = document.getElementsByClassName("data");
+    const texts = document.getElementsByClassName("data");
     var textsArr = [].slice.call(texts);
 
     textsArr[0].innerText = pokemon_info.name;
@@ -39,4 +42,10 @@ document.getElementById("submit").onclick = async function(e){
     audio.load();
 }
 
-
+spriteSelect.onchange = () => {
+    spriteValue = spriteSelect.value;
+    pokemon_info.sprite = spriteValue == "normal" ? pokemon_data.sprites.front_default : pokemon_data.sprites.front_shiny;
+    console.log(pokemon_info.sprite)
+    document.getElementById("sprite").src = pokemon_info.sprite;
+    console.log("hello");
+}
