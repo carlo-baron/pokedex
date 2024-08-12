@@ -24,15 +24,12 @@ document.getElementById("submit").onclick = async function(e){
     let texts = document.getElementsByClassName("data");
     var textsArr = [].slice.call(texts);
 
-    // figureout how foreach work
-    textsArr.forEach(changetext);
-    
-    function changetext(element, index){
-        element.innerText = pokemon_info[Object.keys(pokemon_info)[index]];
-    }
-
-    
-
+    textsArr[0].innerText = pokemon_info.name;
+    textsArr[1].innerText = pokemon_info.abilities;
+    textsArr[2].innerText = pokemon_info.types;
+    textsArr[3].innerText = pokemon_info.base_stats;
+    textsArr[4].innerText = pokemon_info.base_stats.reduce((sum, a) => sum + a);
+    textsArr[5].innerText = pokemon_info.effort;
 
     var audio = document.querySelector("audio");
 
