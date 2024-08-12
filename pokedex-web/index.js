@@ -45,7 +45,5 @@ document.getElementById("submit").onclick = async function(e){
 spriteSelect.onchange = () => {
     spriteValue = spriteSelect.value;
     pokemon_info.sprite = spriteValue == "normal" ? pokemon_data.sprites.front_default : pokemon_data.sprites.front_shiny;
-    console.log(pokemon_info.sprite)
     document.getElementById("sprite").src = pokemon_info.sprite;
-    console.log("hello");
 }
