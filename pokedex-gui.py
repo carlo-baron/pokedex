@@ -10,7 +10,18 @@ root.title("Pokedex by Carlo")
 frame = Frame(root)
 frame.grid(row=0)
 
-
+top_most = False
+def top(event):
+    global top_most
+    
+    if event.keysym == "F8" and top_most == False:
+        root.attributes("-topmost", True)
+        print("nice")
+        top_most = True
+    elif event.keysym == "F8" and top_most == True:
+        root.attributes("-topmost", False)
+        print("not nice")
+        top_most = False
 
 def Search_Pokemon(_):
     global pokemon_info
@@ -94,4 +105,5 @@ root.bind('<Return>', Search_Pokemon)
 search_bar = Entry(frame, width=41)
 search_bar.grid(row=0)
 
+root.bind("<Key>", top)
 root.mainloop()
