@@ -3,6 +3,7 @@ import requests
 from PIL import Image, ImageTk
 from io import BytesIO
 import vlc
+from idlelib.tooltip import Hovertip
 
 root = Tk()
 root.title("Pokedex by Carlo")
@@ -53,7 +54,19 @@ def DisplayData(state):
     
     if state == True:
         name = Label(frame, text=f"Name: {pokemon_info['name']}")
-        abilities = Label(frame, text=f"Abilities: {', '.join(pokemon_info['abilities'])}")
+        # abilities = Label(frame, text=f"Abilities: {', '.join(pokemon_info['abilities'])}")
+        i = 0
+        for ability in pokemon_info["abilities"]:
+            ability_label = Label(frame, text=f"{ability}")
+            ability_label.grid(row=2, column=i)
+            i += 1
+            ability_url = f"https://pokeapi.co/api/v2/ability/{ability}"
+            ability_response = requests.get(ability_url)
+            if ability_response.status_code == 200:
+                ability_data = ability_response.json()
+                ability_tooltip = Hovertip(ability_label, f"{ability_data["effect_entries"][1]["short_effect"]}")
+            
+            
         types = Label(frame, text=f"Types: {', '.join(pokemon_info['types'])}")
         #region Stats
         hp = Label(frame, text=f"HP: {pokemon_info["base_stats"][0]}")
@@ -78,7 +91,6 @@ def DisplayData(state):
         
         #region Packs
         name.grid(row=1)
-        abilities.grid(row=2)
         types.grid(row=3)
         hp.grid(row=4)
         atk.grid(row=5)
