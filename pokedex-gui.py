@@ -3,6 +3,7 @@ import requests
 from PIL import Image, ImageTk
 from io import BytesIO
 import vlc
+from idlelib.tooltip import Hovertip
 
 root = Tk()
 root.title("Pokedex by Carlo")
@@ -16,11 +17,9 @@ def top(event):
     
     if event.keysym == "F8" and top_most == False:
         root.attributes("-topmost", True)
-        print("nice")
         top_most = True
     elif event.keysym == "F8" and top_most == True:
         root.attributes("-topmost", False)
-        print("not nice")
         top_most = False
 
 def Search_Pokemon(_):
@@ -54,6 +53,16 @@ def DisplayData(state):
     if state == True:
         name = Label(frame, text=f"Name: {pokemon_info['name']}")
         abilities = Label(frame, text=f"Abilities: {', '.join(pokemon_info['abilities'])}")
+        
+        description = []
+        for ability in pokemon_info["abilities"]:
+            ability_url = f"https://pokeapi.co/api/v2/ability/{ability}"
+            ability_response = requests.get(ability_url)
+            if ability_response.status_code == 200:
+                ability_data = ability_response.json()
+                description.append(ability_data["effect_entries"][1]["short_effect"])
+            
+        Hovertip(abilities, f"Abilities:\n" + "\n".join(description))
         types = Label(frame, text=f"Types: {', '.join(pokemon_info['types'])}")
         #region Stats
         hp = Label(frame, text=f"HP: {pokemon_info["base_stats"][0]}")
