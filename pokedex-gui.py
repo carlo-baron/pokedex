@@ -60,7 +60,13 @@ def DisplayData(state):
             ability_response = requests.get(ability_url)
             if ability_response.status_code == 200:
                 ability_data = ability_response.json()
-                description.append(ability_data["effect_entries"][1]["short_effect"])
+                if "effect_entries" in ability_data or ability_data is not None:
+                    effect_entries = ability_data["effect_entries"]
+                    if len(effect_entries) > 0:
+                        if len(effect_entries) == 1:
+                            description.append(effect_entries[0]["short_effect"])
+                        else:
+                            description.append(effect_entries[1]["short_effect"])
             
         Hovertip(abilities, f"Abilities:\n" + "\n".join(description))
         types = Label(frame, text=f"Types: {', '.join(pokemon_info['types'])}")
